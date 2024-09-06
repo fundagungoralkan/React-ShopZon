@@ -2,7 +2,7 @@ import React from 'react'
 
 const NavbarLeft = () => {
     return(
-        <div>navbarleft</div>
+        <div className='text-6xl'>ShopZon</div>
     )
 }
 
