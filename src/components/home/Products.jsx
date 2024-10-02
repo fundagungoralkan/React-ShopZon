@@ -1,11 +1,11 @@
 import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../redux/productSlice';
+import { getProducts , getCategoryProducts } from '../../redux/productSlice';
 import Loading from '../Loading';
 import Product from './Product';
 import ReactPaginate from 'react-paginate';
 
-const Products = ({category}) => {
+const Products = ({category,sort}) => {
 
     const dispatch = useDispatch();
     const { products, productsStatus } = useSelector(state => state.products);
@@ -38,11 +38,11 @@ const Products = ({category}) => {
 
 
     
-    console.log(products, "products");
+    console.log(sort, "sort");
 
     useEffect(() => {
      if(category){
-        dispatch(getProducts())
+        dispatch(getCategoryProducts(category))
      }
      else{
         dispatch(getProducts())
@@ -57,7 +57,7 @@ const Products = ({category}) => {
                 <>
                 <div className='flex flex-wrap'>
                     {
-                        currentItems?.map((product, i) => (
+                        currentItems?.sort((a,b) => sort == "inc" ? a.price-b.price : sort == "dec" ? b.price-a.price : "")?.map((product, i) => (
                             <Product key={i} product={product} />
                         ))
                     }
