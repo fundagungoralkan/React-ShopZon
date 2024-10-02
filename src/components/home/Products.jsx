@@ -5,7 +5,7 @@ import Loading from '../Loading';
 import Product from './Product';
 import ReactPaginate from 'react-paginate';
 
-const Products = () => {
+const Products = ({category}) => {
 
     const dispatch = useDispatch();
     const { products, productsStatus } = useSelector(state => state.products);
@@ -41,8 +41,14 @@ const Products = () => {
     console.log(products, "products");
 
     useEffect(() => {
+     if(category){
         dispatch(getProducts())
-    }, [dispatch]);
+     }
+     else{
+        dispatch(getProducts())
+     }
+
+    }, [dispatch,category]);
 
     return (
         <div>
